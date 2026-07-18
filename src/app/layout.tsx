@@ -1,0 +1,47 @@
+import { Space_Grotesk } from "next/font/google";
+import type { Metadata } from "next";
+import "./globals.css";
+import { ThemeProvider } from "../components/context/ThemeContext";
+import GoogleAnalytics from "../components/GoogleAnalytics";
+import GoogleTagManager from "../components/GoogleTagManager";
+import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer";
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://neerajrekwar.github.io"),
+  other: {
+    "p:domain_verify": "9915feac8ce474656e7a8a1fa91b7593",
+  },
+  verification: {
+    google: "pevPfl5iK_JHKnEwB5u-hZs9u54tVHi3UJkbJ9k2eWg",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} scroll-smooth bg-primary focus:scroll-auto scrollbar-thumb-rounded-full scrollbar-thin scrollbar-thumb-four scrollbar-track-seven`}
+    >
+      <body className={`${spaceGrotesk.className} bg-primary`}>
+        <ThemeProvider>
+          <GoogleTagManager containerId="GTM-MV3R5HQL" />
+          <GoogleAnalytics gaId="G-0PCHHEHDFJ" />
+          {children}
+          <Footer />
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
